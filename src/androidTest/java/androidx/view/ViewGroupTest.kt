@@ -23,11 +23,14 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.assertThrows
 import androidx.fail
+import androidx.kotlin.test.R
 import com.google.common.truth.Truth.assertThat
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertNotNull
 import org.junit.Test
 
 class ViewGroupTest {
@@ -251,5 +254,18 @@ class ViewGroupTest {
         assertEquals(40, layoutParams.bottomMargin)
         assertEquals(10, layoutParams.marginStart)
         assertEquals(30, layoutParams.marginEnd)
+    }
+
+    @Test fun inflate() {
+        val root = LinearLayout(context)
+        root.inflate(R.layout.test_activity)
+        assertNotNull(root.findViewById(R.id.image_view))
+    }
+
+    @Test fun notAttachedToRoot() {
+        val root = LinearLayout(context)
+        val inflated = root.inflate(R.layout.test_activity, false)
+        assertNotNull(inflated)
+        assertNull(root.findViewById(R.id.image_view))
     }
 }

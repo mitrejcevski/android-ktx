@@ -18,8 +18,10 @@
 
 package androidx.view
 
+import android.support.annotation.LayoutRes
 import android.support.annotation.Px
 import android.support.annotation.RequiresApi
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
@@ -113,4 +115,18 @@ fun ViewGroup.MarginLayoutParams.updateMarginsRelative(
     topMargin = top
     marginEnd = end
     bottomMargin = bottom
+}
+
+/**
+ * Inflates the specified layout resource as child to itself.
+ *
+ * @param layoutResource The layout to be inflated.
+ * @param attachToSelf If the inflated layout should be attached to root. True by default.
+ *
+ * @see ViewGroup.inflate
+*/
+fun ViewGroup.inflate(@LayoutRes layoutResource: Int, attachToSelf: Boolean = true): View {
+    return LayoutInflater
+        .from(this.context)
+        .inflate(layoutResource, this, attachToSelf)
 }
